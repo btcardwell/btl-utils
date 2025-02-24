@@ -1,0 +1,14 @@
+categories:
+  A: "1"
+
+metrics:
+  dummy: "1"
+
+read:
+  tL: "g_DeltaTTopL"
+  tR: "g_DeltaTTopR"
+  bL: "g_DeltaTBottomL"
+  bR: "g_DeltaTBottomR"
+
+values:
+  dummy: 1

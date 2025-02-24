@@ -1,0 +1,159 @@
+##################################################
+########## 1D histograms #########################
+##################################################
+
+h1_deltaT_4min:
+  type: "hist1"
+  entries:
+    deltaT_tL:
+      plot: "{DT}.Eval(4)"
+      read:
+        DT: "g_DeltaTTopL"
+      label: "Top left"
+      color: 2
+      fillstyle: 0
+    deltaT_tR:
+      plot: "{DT}.Eval(4)"
+      read:
+        DT: "g_DeltaTTopR"
+      label: "Top right"
+      color: 800
+      fillstyle: 0
+    deltaT_bL:
+      plot: "{DT}.Eval(4)"
+      read:
+        DT: "g_DeltaTBottomL"
+      label: "Bottom left"
+      color: 4
+      fillstyle: 0
+    deltaT_bR:
+      plot: "{DT}.Eval(4)"
+      read:
+        DT: "g_DeltaTBottomR"
+      label: "Bottom right"
+      color: 6
+      fillstyle: 0
+    deltaT_avg:
+      plot: "numpy.mean([{tL}.Eval(4), {tR}.Eval(4), {bL}.Eval(4), {bR}.Eval(4)])"
+      read:
+        tL: "g_DeltaTTopL"
+        tR: "g_DeltaTTopR"
+        bL: "g_DeltaTBottomL"
+        bR: "g_DeltaTBottomR"
+      label: "Avg."
+      color: 1
+      fillstyle: 0
+  xmin: -25
+  xmax: -15
+  nbins: 50
+  xtitle: "#DeltaT at 4 min. [#circC]"
+  ytitle: "Entries"
+  gridx: True
+  gridy: False
+
+
+h1_deltaT-std_4min:
+  type: "hist1"
+  entries:
+    deltaT_avg:
+      plot: "numpy.std([{tL}.Eval(4), {tR}.Eval(4), {bL}.Eval(4), {bR}.Eval(4)])"
+      read:
+        tL: "g_DeltaTTopL"
+        tR: "g_DeltaTTopR"
+        bL: "g_DeltaTBottomL"
+        bR: "g_DeltaTBottomR"
+      label: "At 4 min."
+      color: 1
+      fillstyle: 3001
+  xmin: 0
+  xmax: 1
+  nbins: 50
+  xtitle: "#sigma(#DeltaT) [#circC]"
+  ytitle: "Entries"
+  gridx: True
+  gridy: False
+
+
+##################################################
+########## 1D graphs #############################
+##################################################
+
+
+g1_deltaT_vs_barcode:
+  type: "graph"
+  entries:
+    deltaT_avg_vs_barcode:
+      plotx: "int('{barcode}'.split('3211004000')[1])"
+      ploty: "numpy.mean([{tL}.Eval(4), {tR}.Eval(4), {bL}.Eval(4), {bR}.Eval(4)])"
+      read:
+        tL: "g_DeltaTTopL"
+        tR: "g_DeltaTTopR"
+        bL: "g_DeltaTBottomL"
+        bR: "g_DeltaTBottomR"
+      label: "Avg."
+      color: 1
+      marker: 4
+      size: 1
+      drawopt: "P"
+  xmin: 4100
+  xmax: 4500
+  ymin: -25
+  ymax: -15
+  xtitle: "DM barcode [prefix 3211004000]"
+  ytitle: "#DeltaT at 4 min. [#circC]"
+  gridx: True
+  gridy: True
+
+
+g1_deltaT-std_vs_barcode:
+  type: "graph"
+  entries:
+    deltaT-std_vs_barcode:
+      plotx: "int('{barcode}'.split('3211004000')[1])"
+      ploty: "numpy.std([{tL}.Eval(4), {tR}.Eval(4), {bL}.Eval(4), {bR}.Eval(4)])"
+      read:
+        tL: "g_DeltaTTopL"
+        tR: "g_DeltaTTopR"
+        bL: "g_DeltaTBottomL"
+        bR: "g_DeltaTBottomR"
+      label: "At 4 min."
+      color: 1
+      marker: 4
+      size: 1
+      drawopt: "P"
+  xmin: 4100
+  xmax: 4500
+  ymin: 0
+  ymax: 1
+  xtitle: "DM barcode [prefix 3211004000]"
+  ytitle: "#sigma(#DeltaT) [#circC]"
+  gridx: True
+  gridy: True
+
+
+g1_deltaT-std_vs_tec-std:
+  type: "graph"
+  entries:
+    deltaT-std_vs_tec-std:
+      plotx: "numpy.std([{sm1}['sipm1']['tec_res'], {sm1}['sipm2']['tec_res'], {sm2}['sipm1']['tec_res'], {sm2}['sipm2']['tec_res']])"
+      ploty: "numpy.std([{tL}.Eval(4), {tR}.Eval(4), {bL}.Eval(4), {bR}.Eval(4)])"
+      read:
+        tL: "g_DeltaTTopL"
+        tR: "g_DeltaTTopR"
+        bL: "g_DeltaTBottomL"
+        bR: "g_DeltaTBottomR"
+      #fit: 
+      #  pol0: "[0]+([1]*x)"
+      label: "At 4 min."
+      color: 1
+      marker: 4
+      size: 1
+      drawopt: "P"
+  xmin: 0
+  xmax: 0.5
+  ymin: 0
+  ymax: 1
+  xtitle: "#sigma(R_{TEC}) [#Omega]"
+  ytitle: "#sigma(#DeltaT) [#circC]"
+  gridx: True
+  gridy: True

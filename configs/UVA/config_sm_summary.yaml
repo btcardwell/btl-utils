@@ -1,0 +1,721 @@
+##################################################
+########## 1D histograms #########################
+##################################################
+
+# Define plot quantity in terms of objects (like tgraphs) read from files
+# Python expressions will be evaluated
+# For e.g.: an object {key} needs to be defined under "read" block as key: object_name
+
+h1_spe_LR_bar:
+  type: "hist1"
+  entries:
+    spe_L_vs_bar:
+      plot: "numpy.array({spe}.GetY())"
+      read:
+        spe: "g_spe_L_vs_bar"
+      label: "Left"
+      color: 2
+      fillstyle: 3001
+    spe_R_vs_bar:
+      plot: "numpy.array({spe}.GetY())"
+      read:
+        spe: "g_spe_R_vs_bar"
+      label: "Right"
+      color: 4
+      fillstyle: 3001
+  xmin: 2
+  xmax: 5
+  nbins: 150
+  xtitle: "Single p.e. charge [pC]"
+  ytitle: "Entries"
+  gridx: True
+  gridy: False
+  labelmode: "stddev_by_mean"
+
+
+h1_src-chg_LR_bar:
+  type: "hist1"
+  entries:
+    L_light_yield_vs_bar:
+      plot: "numpy.array({src}.GetY())"
+      read:
+        src: "g_lyso_L_pc_per_kev_vs_bar"
+      label: "Left"
+      color: 2
+      fillstyle: 3002
+    R_light_yield_vs_bar:
+      plot: "numpy.array({src}.GetY())"
+      read:
+        src: "g_lyso_R_pc_per_kev_vs_bar"
+      label: "Right"
+      color: 4
+      fillstyle: 3002
+    avg_light_yield_vs_bar:
+      plot: "numpy.array({src}.GetY())"
+      read:
+        src: "g_avg_lyso_pc_per_kev_vs_bar"
+      label: "Bar"
+      color: 1
+      fillstyle: 3002
+  xmin: 0
+  xmax: 4
+  nbins: 200
+  xtitle: "Integrated charge [pC/keV]"
+  ytitle: "Entries"
+  gridx: True
+  gridy: False
+  labelmode: "stddev_by_mean"
+
+
+h1_lo_LR_bar:
+  type: "hist1"
+  entries:
+    L_light_yield_vs_bar:
+      plot: "numpy.array({lo}.GetY())"
+      read:
+        lo: "g_L_light_yield_vs_bar"
+      label: "Left"
+      color: 2
+      fillstyle: 3002
+    R_light_yield_vs_bar:
+      plot: "numpy.array({lo}.GetY())"
+      read:
+        lo: "g_R_light_yield_vs_bar"
+      label: "Right"
+      color: 4
+      fillstyle: 3002
+    avg_light_yield_vs_bar:
+      plot: "numpy.array({lo}.GetY())"
+      read:
+        lo: "g_avg_light_yield_vs_bar"
+      label: "Bar"
+      color: 1
+      fillstyle: 3002
+  xmin: 1500
+  xmax: 5500
+  nbins: 100
+  xtitle: "Light output [p.e./MeV]"
+  ytitle: "Entries"
+  gridx: True
+  gridy: False
+  labelmode: "stddev_by_mean"
+
+
+h1_lo-avg_bar:
+  type: "hist1"
+  entries:
+    avg_light_yield_vs_bar:
+      plot: "{lo}.GetMean(2)"
+      read:
+        lo: "g_avg_light_yield_vs_bar"
+      label: "Bar avg."
+      color: 1
+      fillstyle: 3002
+  xmin: 1500
+  xmax: 5500
+  nbins: 100
+  xtitle: "Light output [p.e./MeV]"
+  ytitle: "Entries"
+  gridx: True
+  gridy: False
+  labelmode: "stddev_by_mean"
+
+
+h1_lo-asymm_LR_bar:
+  type: "hist1"
+  entries:
+    light_yield_asymm_vs_bar:
+      plot: "numpy.array({asymm}.GetY())"
+      read:
+        asymm: "g_light_yield_asymm_vs_bar"
+      label: "Bar"
+      color: 1
+      fillstyle: 3002
+  xmin: -0.3
+  xmax: 0.3
+  nbins: 200
+  xtitle: "LO asymmetry [ (2*(L-R)/(L+R)) ]"
+  ytitle: "Entries"
+  gridx: True
+  gridy: False
+  labelmode: "stddev"
+
+
+h1_lo-asymm_avg_bar:
+  type: "hist1"
+  entries:
+    light_yield_asymm_vs_bar:
+      plot: "numpy.mean(numpy.abs(numpy.array({asymm}.GetY())))"
+      read:
+        asymm: g_light_yield_asymm_vs_bar
+      label: "Bar avg."
+      color: 1
+      fillstyle: 3002
+  xmin: 0
+  xmax: 0.2
+  nbins: 100
+  xtitle: "Absolute LO asymmetry [ 2*|L-R|/(L+R)) ]"
+  ytitle: "Entries"
+  gridx: True
+  gridy: False
+  labelmode: "stddev"
+
+
+h1_peak-res_LR_bar:
+  type: "hist1"
+  entries:
+    lyso_L_peak_res_vs_bar:
+      plot: "numpy.array({res}.GetY())*100"
+      read:
+        res: g_lyso_L_peak_res_vs_bar
+      label: "Left"
+      color: 2
+      fillstyle: 3002
+    lyso_R_peak_res_vs_bar:
+      plot: "numpy.array({res}.GetY())*100"
+      read:
+        res: "g_lyso_R_peak_res_vs_bar"
+      label: "Right"
+      color: 4
+      fillstyle: 3002
+    avg_lyso_res_vs_bar:
+      plot: "numpy.array({res}.GetY())*100"
+      read:
+        res: "g_avg_lyso_res_vs_bar"
+      label: "Bar"
+      color: 1
+      fillstyle: 3002
+  xmin: 0
+  xmax: 10
+  nbins: 100
+  xtitle: "Peak energy resolution [%]"
+  ytitle: "Entries"
+  gridx: True
+  gridy: False
+  labelmode: "stddev_by_mean"
+
+
+h1_peak-res-avg_bar:
+  type: "hist1"
+  entries:
+    avg_light_yield_vs_bar:
+      plot: "{res}.GetMean(2)*100"
+      read:
+        res: "g_avg_lyso_res_vs_bar"
+      label: "Bar avg."
+      color: 1
+      fillstyle: 3002
+  xmin: 0
+  xmax: 10
+  nbins: 100
+  xtitle: "Peak energy resolution [%]"
+  ytitle: "Entries"
+  gridx: True
+  gridy: False
+  labelmode: "stddev_by_mean"
+
+
+#h1_lo_fom_bar:
+#  type: "hist1"
+#  entries:
+#    lo_fom_vs_bar:
+#      plot: "100*((numpy.array({loL}.GetY())**(2*-0.7)) + (numpy.array({loR}.GetY())**(2*-0.7)))**0.5"
+#      read:
+#        loL: "g_L_light_yield_vs_bar"
+#        loR: "g_R_light_yield_vs_bar"
+#      label: "#alpha = -0.7"
+#      color: 1
+#      fillstyle: 3002
+#  xmin: 0
+#  xmax: 1
+#  nbins: 100
+#  xtitle: "Bar LO FOM [100(LO^{2#alpha}_{L}+LO^{2#alpha}_{R})^{1/2}]"
+#  ytitle: "Entries"
+#  gridx: True
+#  gridy: False
+
+
+h1_metric_counts:
+  type: "hist1"
+  entries:
+    lo_low_nch:
+      plot: "{lo_low_nch}"
+      label: "n_{ch}(low LO)"
+      color: 1
+      fillstyle: 0
+      linestyle: 7
+    lo_low_nbar:
+      plot: "{lo_low_nbar}"
+      label: "n_{bar}(low LO)"
+      color: 2
+      fillstyle: 0
+      linestyle: 7
+    lo_asymm_nbar:
+      plot: "{lo_asymm_nbar}"
+      label: "n_{bar}(asymm. LO)"
+      color: 3
+      fillstyle: 0
+      linestyle: 7
+    res_high_nbar:
+      plot: "{res_high_nbar}"
+      label: "n_{bar}(high res.)"
+      color: 4
+      fillstyle: 0
+      linestyle: 7
+    #spe_high_nch: 
+    #  plot: "{spe_high_nch}"
+    #  label: "n_{bar}(high s.p.e.)"
+    #  color: 1
+    #  fillstyle: 3002
+    #spe_low_nch:
+    #  plot: "{spe_low_nch}"
+    #  label: "n_{bar}(low s.p.e.)"
+    #  color: 1
+    #  fillstyle: 3002
+  xmin: 0
+  xmax: 32
+  nbins: 32
+  ndivisionsx: [4, 8, 0]
+  #centerlabelx: True
+  xtitle: "n_{bar} or n_{ch}"
+  ytitle: "Number of SMs"
+  gridx: True
+  gridy: False
+
+
+##################################################
+########## 1D graphs #############################
+##################################################
+
+
+g1_spe-avg_vs_barcode:
+  type: "graph"
+  entries:
+    spe_L_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "{spe}.GetMean(2)"
+      read:
+        spe: "g_spe_L_vs_bar"
+      label: "Left avg."
+      color: 2
+      marker: 4
+      size: 1
+      drawopt: "P"
+      fit: 
+        pol0: "[0]+([1]*x)"
+    spe_R_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "{spe}.GetMean(2)"
+      read:
+        spe: "g_spe_R_vs_bar"
+      label: "Right avg."
+      color: 4
+      marker: 4
+      size: 1
+      drawopt: "P"
+      fit: 
+        pol0: "[0]+([1]*x)"
+  xmin: 5600
+  xmax: null
+  ymin: 2
+  ymax: 5
+  ndivisionsx: [5, 5, 0]
+  xtitle: "SM barcode [prefix 3211002000]"
+  ytitle: "Single p.e. charge [pC]"
+  gridx: True
+  gridy: True
+
+
+g1_spe-min_vs_barcode:
+  type: "graph"
+  entries:
+    spe_L_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "min(numpy.array({spe}.GetY()))"
+      read:
+        spe: "g_spe_L_vs_bar"
+      label: "Left min."
+      color: 2
+      marker: 4
+      size: 1
+      drawopt: "P"
+    spe_R_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "min(numpy.array({spe}.GetY()))"
+      read:
+        spe: "g_spe_R_vs_bar"
+      label: "Right min."
+      color: 4
+      marker: 4
+      size: 1
+      drawopt: "P"
+  xmin: 5600
+  xmax: null
+  ymin: 2
+  ymax: 5
+  ndivisionsx: [5, 5, 0]
+  xtitle: "SM barcode [prefix 3211002000]"
+  ytitle: "Single p.e. charge [pC]"
+  gridx: True
+  gridy: True
+
+
+g1_spe-max_vs_barcode:
+  type: "graph"
+  entries:
+    spe_L_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "max(numpy.array({spe}.GetY()))"
+      read:
+        spe: "g_spe_L_vs_bar"
+      label: "Left max."
+      color: 2
+      marker: 4
+      size: 1
+      drawopt: "P"
+    spe_R_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "max(numpy.array({spe}.GetY()))"
+      read:
+        spe: "g_spe_R_vs_bar"
+      label: "Right max."
+      color: 4
+      marker: 4
+      size: 1
+      drawopt: "P"
+  xmin: 5600
+  xmax: null
+  ymin: 2
+  ymax: 5
+  ndivisionsx: [5, 5, 0]
+  xtitle: "SM barcode [prefix 3211002000]"
+  ytitle: "Single p.e. charge [pC]"
+  gridx: True
+  gridy: True
+
+
+g1_src-chg-avg_vs_barcode:
+  type: "graph"
+  entries:
+    src_L_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "{src}.GetMean(2)"
+      read:
+        src: "g_lyso_L_pc_per_kev_vs_bar"
+      label: "Left avg."
+      color: 2
+      marker: 4
+      size: 1
+      drawopt: "P"
+      fit: 
+        pol0: "[0]+([1]*x)"
+    src_R_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "{src}.GetMean(2)"
+      read:
+        src: "g_lyso_R_pc_per_kev_vs_bar"
+      label: "Right avg."
+      color: 4
+      marker: 4
+      size: 1
+      drawopt: "P"
+      fit: 
+        pol0: "[0]+([1]*x)"
+    src_bar_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "{src}.GetMean(2)"
+      read:
+        src: "g_avg_lyso_pc_per_kev_vs_bar"
+      label: "Bar avg."
+      color: 1
+      marker: 4
+      size: 1
+      drawopt: "P"
+      fit: 
+        pol0: "[0]+([1]*x)"
+  xmin: 5600
+  xmax: null
+  ymin: 0
+  ymax: 4
+  ndivisionsx: [5, 5, 0]
+  xtitle: "SM barcode [prefix 3211002000]"
+  ytitle: "Integrated charge [pC/keV]"
+  gridx: True
+  gridy: True
+
+
+g1_lo-avg_vs_barcode:
+  type: "graph"
+  entries:
+    lo_L_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "{lo}.GetMean(2)/1000"
+      read:
+        lo: "g_L_light_yield_vs_bar"
+      label: "Left avg."
+      color: 2
+      marker: 4
+      size: 1
+      drawopt: "P"
+      fit: 
+        pol0: "[0]+([1]*x)"
+    lo_R_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "{lo}.GetMean(2)/1000"
+      read:
+        lo: "g_R_light_yield_vs_bar"
+      label: "Right avg."
+      color: 4
+      marker: 4
+      size: 1
+      drawopt: "P"
+      fit: 
+        pol0: "[0]+([1]*x)"
+    lo_bar_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "{lo}.GetMean(2)/1000"
+      read:
+        lo: "g_avg_light_yield_vs_bar"
+      label: "Bar avg."
+      color: 1
+      marker: 4
+      size: 1
+      drawopt: "P"
+      fit: 
+        pol0: "[0]+([1]*x)"
+  xmin: 5600
+  xmax: null
+  ymin: 1.5
+  ymax: 5.5
+  ndivisionsx: [5, 5, 0]
+  xtitle: "SM barcode [prefix 3211002000]"
+  ytitle: "10^{-3}#times  Light output [p.e./MeV]"
+  gridx: True
+  gridy: True
+
+
+g1_lo-min_vs_barcode:
+  type: "graph"
+  entries:
+    lo_L_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "min(numpy.array({lo}.GetY()))/1000"
+      read:
+        lo: "g_L_light_yield_vs_bar"
+      label: "Left min."
+      color: 2
+      marker: 4
+      size: 1
+      drawopt: "P"
+    lo_R_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "min(numpy.array({lo}.GetY()))/1000"
+      read:
+        lo: "g_R_light_yield_vs_bar"
+      label: "Right min."
+      color: 4
+      marker: 4
+      size: 1
+      drawopt: "P"
+    lo_bar_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "min(numpy.array({lo}.GetY()))/1000"
+      read:
+        lo: "g_avg_light_yield_vs_bar"
+      label: "Bar min."
+      color: 1
+      marker: 4
+      size: 1
+      drawopt: "P"
+  xmin: 5600
+  xmax: null
+  ymin: 1.5
+  ymax: 5.5
+  ndivisionsx: [5, 5, 0]
+  xtitle: "SM barcode [prefix 3211002000]"
+  ytitle: "10^{-3}#times  Light output [p.e./MeV]"
+  gridx: True
+  gridy: True
+
+
+g1_lo-max_vs_barcode:
+  type: "graph"
+  entries:
+    lo_L_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "max(numpy.array({lo}.GetY()))/1000"
+      read:
+        lo: "g_L_light_yield_vs_bar"
+      label: "Left max."
+      color: 2
+      marker: 4
+      size: 1
+      drawopt: "P"
+    lo_R_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "max(numpy.array({lo}.GetY()))/1000"
+      read:
+        lo: "g_R_light_yield_vs_bar"
+      label: "Right max."
+      color: 4
+      marker: 4
+      size: 1
+      drawopt: "P"
+    lo_bar_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "max(numpy.array({lo}.GetY()))/1000"
+      read:
+        lo: "g_avg_light_yield_vs_bar"
+      label: "Bar max."
+      color: 1
+      marker: 4
+      size: 1
+      drawopt: "P"
+  xmin: 5600
+  xmax: null
+  ymin: 1.5
+  ymax: 5.5
+  ndivisionsx: [5, 5, 0]
+  xtitle: "SM barcode [prefix 3211002000]"
+  ytitle: "10^{-3}#times  Light output [p.e./MeV]"
+  gridx: True
+  gridy: True
+
+
+g1_peak-res-avg_vs_barcode:
+  type: "graph"
+  entries:
+    res_L_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "{res}.GetMean(2)*100"
+      read:
+        res: "g_lyso_L_peak_res_vs_bar"
+      label: "Left avg."
+      color: 2
+      marker: 4
+      size: 1
+      drawopt: "P"
+      fit: 
+        pol0: "[0]+([1]*x)"
+    res_R_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "{res}.GetMean(2)*100"
+      read:
+        res: "g_lyso_R_peak_res_vs_bar"
+      label: "Right avg."
+      color: 4
+      marker: 4
+      size: 1
+      drawopt: "P"
+      fit: 
+        pol0: "[0]+([1]*x)"
+    res_bar_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "{res}.GetMean(2)*100"
+      read:
+        res: "g_avg_lyso_res_vs_bar"
+      label: "Bar avg."
+      color: 1
+      marker: 4
+      size: 1
+      drawopt: "P"
+      fit: 
+        pol0: "[0]+([1]*x)"
+  xmin: 5600
+  xmax: null
+  ymin: 0
+  ymax: 10
+  ndivisionsx: [5, 5, 0]
+  xtitle: "SM barcode [prefix 3211002000]"
+  ytitle: "Peak energy resolution [%]"
+  gridx: True
+  gridy: True
+
+
+g1_peak-res-max_vs_barcode:
+  type: "graph"
+  entries:
+    res_L_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "max(numpy.array({res}.GetY()))*100"
+      read:
+        res: "g_lyso_L_peak_res_vs_bar"
+      label: "Left max."
+      color: 2
+      marker: 4
+      size: 1
+      drawopt: "P"
+    res_R_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "max(numpy.array({res}.GetY()))*100"
+      read:
+        res: "g_lyso_R_peak_res_vs_bar"
+      label: "Right max."
+      color: 4
+      marker: 4
+      size: 1
+      drawopt: "P"
+    res_bar_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "max(numpy.array({res}.GetY()))*100"
+      read:
+        res: "g_avg_lyso_res_vs_bar"
+      label: "Bar max."
+      color: 1
+      marker: 4
+      size: 1
+      drawopt: "P"
+  xmin: 5600
+  xmax: null
+  ymin: 0
+  ymax: 10
+  ndivisionsx: [5, 5, 0]
+  xtitle: "SM barcode [prefix 3211002000]"
+  ytitle: "Peak energy resolution [%]"
+  gridx: True
+  gridy: True
+
+
+g1_peak-res-max_vs_lyso:
+  type: "graph"
+  entries:
+    res_bar_vs_lyso:
+      plotx: "int('{lyso}'.split('3211000010')[1]) if '{lyso}'.startswith('3211000010') else 0"
+      ploty: "max(numpy.array({res}.GetY()))*100"
+      read:
+        res: "g_avg_lyso_res_vs_bar"
+      label: "Bar max."
+      color: 1
+      marker: 4
+      size: 1
+      drawopt: "P"
+  xmin: 0
+  xmax: null
+  ymin: 0
+  ymax: 10
+  xtitle: "LYSO barcode [prefix 3211000010]"
+  ytitle: "Peak energy resolution [%]"
+  gridx: True
+  gridy: True
+
+
+g1_cat_vs_barcode:
+  type: "graph"
+  entries:
+    cat_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "ord('{category}')-65" # Converts to A, B, C, ... to 0, 1, 2, ...
+      label: "Category"
+      color: 1
+      marker: 4
+      size: 1
+      drawopt: "P"
+  xmin: 5600
+  xmax: null
+  ymin: -1
+  ymax: 5
+  ndivisionsx: [5, 5, 0]
+  xtitle: "SM barcode [prefix 3211002000]"
+  ytitle: "Category"
+  gridx: True
+  gridy: True
