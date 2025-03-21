@@ -39,10 +39,10 @@ read:
 # Define values
 # Python expressions will be evaluated
 values:
-  lo_bar_min: "(0.85*3250)"
-  lo_ch_min: "(0.85*3250)"
+  lo_bar_min: "(0.85*3200)"
+  lo_ch_min: "(0.85*3130)"
   lo_asymm_bar_max: 0.2
   #res_bar_min: 0.045
   res_bar_min: 0.05
-  spe_ch_max: "(1.1*3.52)"
-  spe_ch_min: "(0.9*3.52)"
+  spe_ch_max: "(1.1*3.965)"
+  spe_ch_min: "(0.9*3.965)"
