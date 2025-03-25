@@ -624,7 +624,7 @@ g1_peak-res-avg_vs_barcode:
   xmin: 5600
   xmax: null
   ymin: 0
-  ymax: 10
+  ymax: 15
   ndivisionsx: [5, 5, 0]
   xtitle: "SM barcode [prefix 3211002000]"
   ytitle: "Peak energy resolution [%]"
@@ -668,7 +668,7 @@ g1_peak-res-max_vs_barcode:
   xmin: 5600
   xmax: null
   ymin: 0
-  ymax: 10
+  ymax: 15
   ndivisionsx: [5, 5, 0]
   xtitle: "SM barcode [prefix 3211002000]"
   ytitle: "Peak energy resolution [%]"
@@ -692,7 +692,7 @@ g1_peak-res-max_vs_lyso:
   xmin: 0
   xmax: null
   ymin: 0
-  ymax: 10
+  ymax: 15
   xtitle: "LYSO barcode [prefix 3211000010]"
   ytitle: "Peak energy resolution [%]"
   gridx: True
