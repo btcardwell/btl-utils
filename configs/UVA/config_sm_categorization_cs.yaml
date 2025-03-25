@@ -2,47 +2,52 @@
 # Python expressions will be evaluated
 # For e.g.: a metric {key} needs to be defined under the "metrics" block as key: expression
 categories:
-  #A: "{lo_low_nbar}==0 and {lo_low_nch}==0 and {spe_high_nch}==0 and {spe_low_nch}==0 and {res_high_nbar}==0"
-  #B: "{lo_low_nbar}==0 and {lo_low_nch}==1 and {spe_high_nch}==0 and {spe_low_nch}==0 and {res_high_nbar}==0"
-  #C: "({lo_low_nbar}>0 or  {lo_low_nch}>1  or  {spe_high_nch}>0  or  {spe_low_nch}>0) and {res_high_nbar}==0"
-  #X: "{res_high_nbar}>0"
-  A: "({spe_high_nch} + {spe_low_nch}) == 0 and {lo_low_nbar} == 0 and ({lo_low_nch} + {lo_asymm_nbar} + {res_high_nbar}) == 0"
-  B: "({spe_high_nch} + {spe_low_nch}) == 0 and {lo_low_nbar} == 0 and ({lo_low_nch} + {lo_asymm_nbar} + {res_high_nbar}) == 1"
-  C: "({spe_high_nch} + {spe_low_nch}) == 0 and {lo_low_nbar} == 0 and ({lo_low_nch} + {lo_asymm_nbar} + {res_high_nbar}) == 2"
-  R: "not ({A} or {B} or {C})"
-
-# The metric {key} defined under the "metrics" block, that is to be used for pairing
-#pairing: "{lo_bar_mean}"
+  A: ({spe_high_nch} + {spe_low_nch}) == 0 and {bad_nbar} == 0
+  B: ({spe_high_nch} + {spe_low_nch}) == 0 and {bad_nbar} == 1
+  C: ({spe_high_nch} + {spe_low_nch}) == 0 and {bad_nbar} == 2
+  R: not ({A} or {B} or {C})
 
 # Define metrics in terms of objects (like tgraphs) read from files
 # Python expressions will be evaluated
 # For e.g.: an object {key} needs to be defined under "read" block as key: object_name
 # The "pairing" key needs to be defined if modules are to be paired
 metrics:
-  lo_low_nbar: "numpy.count_nonzero(numpy.array({lo_bar}.GetY()) < {lo_bar_min})"
-  lo_low_nch: "numpy.count_nonzero(numpy.array({lo_ch}.GetY()) < {lo_ch_min})"
-  lo_asymm_nbar: "numpy.count_nonzero(numpy.abs(numpy.array({lo_asymm_bar}.GetY())) > {lo_asymm_bar_max})"
-  res_high_nbar: "numpy.count_nonzero(numpy.array({res_bar}.GetY()) > {res_bar_min})"
-  spe_high_nch: "numpy.count_nonzero(numpy.array({spe_ch}.GetY()) > {spe_ch_max})"
-  spe_low_nch: "numpy.count_nonzero(numpy.array({spe_ch}.GetY()) < {spe_ch_min})"
-  #lo_bar_mean: "numpy.mean(numpy.array({lo_bar}.GetY())"
-  pairing: "float(numpy.mean(numpy.array({lo_bar}.GetY())))"
+  lo_low_nbar: "numpy.count_nonzero(get_gry({lo_bar}) < {lo_bar_min})"
+  lo_low_nch: "numpy.count_nonzero(get_gry({lo_ch}) < {lo_ch_min})"
+  lo_asymm_nbar: "numpy.count_nonzero(numpy.abs(get_gry({lo_asymm_bar})) > {lo_asymm_bar_max})"
+  res_high_nbar: "numpy.count_nonzero(get_gry({res_bar}) > {res_bar_max})"
+  spe_high_nch: "numpy.count_nonzero(get_gry({spe_ch}) > {spe_ch_max})"
+  spe_low_nch: "numpy.count_nonzero(get_gry({spe_ch}) < {spe_ch_min})"
+  
+  bad_nbar: >-
+    numpy.count_nonzero(
+      (get_gry({lo_barL}) < {lo_ch_min})
+    + (get_gry({lo_barR}) < {lo_ch_min})
+    + (get_gry({lo_bar}) < {lo_bar_min})
+    + (numpy.abs(get_gry({lo_asymm_bar})) > {lo_asymm_bar_max})
+    + (get_gry({res_bar}) > {res_bar_max})
+    )
+  
+  pairing: "float(numpy.mean(get_gry({lo_bar})))"
 
 # Define the objects to be read from files
 read:
   lo_bar: "g_avg_light_yield_vs_bar"
+  lo_barL: "g_L_light_yield_vs_bar"
+  lo_barR: "g_R_light_yield_vs_bar"
   lo_ch: "g_light_yield_vs_ch"
   lo_asymm_bar: "g_light_yield_asymm_vs_bar"
   res_bar: "g_avg_lyso_res_vs_bar"
   spe_ch: "g_spe_vs_ch"
+  spe_barL: "g_spe_L_vs_bar"
+  spe_barR: "g_spe_R_vs_bar"
 
 # Define values
 # Python expressions will be evaluated
 values:
-  lo_bar_min: "(0.85*3200)"
-  lo_ch_min: "(0.85*3130)"
+  lo_bar_min: "(0.85*3224)"
+  lo_ch_min: "(0.80*3224)"
   lo_asymm_bar_max: 0.2
-  #res_bar_min: 0.045
-  res_bar_min: 0.05
-  spe_ch_max: "(1.1*3.965)"
-  spe_ch_min: "(0.9*3.965)"
+  res_bar_max: 0.06
+  spe_ch_max: "4.4"
+  spe_ch_min: "3.4"
