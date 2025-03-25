@@ -561,6 +561,7 @@ def main() :
     l_modules_bad_eval = []
     
     for module in tqdm.tqdm(d_modules.values()) :
+        logging.info(f"Processing {module}")
         
         rootfile = ROOT.TFile.Open(module.fname)
         isbad = False
