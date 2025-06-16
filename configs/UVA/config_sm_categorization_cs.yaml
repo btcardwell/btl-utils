@@ -2,10 +2,11 @@
 # Python expressions will be evaluated
 # For e.g.: a metric {key} needs to be defined under the "metrics" block as key: expression
 categories:
-  A: ({spe_high_nch} + {spe_low_nch}) == 0 and {bad_nbar} == 0
-  B: ({spe_high_nch} + {spe_low_nch}) == 0 and {bad_nbar} == 1
-  C: ({spe_high_nch} + {spe_low_nch}) == 0 and {bad_nbar} == 2
-  R: not ({A} or {B} or {C})
+  A: ({spe_high_nch} + {spe_low_nch}) == 0 and (not {lo_asymm_avg_high}) and {bad_nbar} == 0
+  B: ({spe_high_nch} + {spe_low_nch}) == 0 and (not {lo_asymm_avg_high}) and {bad_nbar} == 1
+  C: ({spe_high_nch} + {spe_low_nch}) == 0 and (not {lo_asymm_avg_high}) and {bad_nbar} == 2
+  D: ({spe_high_nch} + {spe_low_nch}) == 0 and (not {lo_asymm_avg_high}) and {bad_nbar} > 2 and {bad_nbar_lo} <= 2 and {res_high_nbar} > 0
+  R: not ({A} or {B} or {C} or {D})
 
 # Define metrics in terms of objects (like tgraphs) read from files
 # Python expressions will be evaluated
@@ -21,6 +22,14 @@ metrics:
   
   lo_asymm_avg_high: "int(numpy.mean(get_gry({lo_asymm_bar})) > {lo_asymm_avg_max})"
 
+  bad_nbar_lo: >-
+    numpy.count_nonzero(
+      (get_gry({lo_barL}) < {lo_ch_min})
+    + (get_gry({lo_barR}) < {lo_ch_min})
+    + (get_gry({lo_bar}) < {lo_bar_min})
+    + (numpy.abs(get_gry({lo_asymm_bar})) > {lo_asymm_bar_max})
+    )
+
   bad_nbar: >-
     numpy.count_nonzero(
       (get_gry({lo_barL}) < {lo_ch_min})
@@ -30,7 +39,10 @@ metrics:
     + (get_gry({res_bar}) > {res_bar_max})
     )
   
-  pairing: "float(numpy.mean(get_gry({lo_bar})))"
+  # Negative for reverse sorting
+  pairing: "-float(numpy.mean(get_gry({lo_bar})))"
+
+pairing_condition: "'{category}' in ['A', 'B', 'C']"
 
 # Define the objects to be read from files
 read:

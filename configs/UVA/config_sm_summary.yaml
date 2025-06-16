@@ -289,6 +289,190 @@ h1_metric_counts:
   legendpos: UR
 
 
+h1_metric_counts_cat-B:
+  type: "hist1"
+  entries:
+    lo_low_nch:
+      plot: "{lo_low_nch}"
+      weight: "'{category}' == 'B'"
+      label: "n_{ch}(low LO)"
+      color: "#3f90da"
+      fillstyle: 0
+      linestyle: 7
+      linewidth: 3
+    lo_low_nbar:
+      plot: "{lo_low_nbar}"
+      weight: "'{category}' == 'B'"
+      label: "n_{bar}(low LO)"
+      color: "#f89c20"
+      fillstyle: 0
+      linestyle: 7
+      linewidth: 3
+    lo_asymm_nbar:
+      plot: "{lo_asymm_nbar}"
+      label: "n_{bar}(asymm. LO)"
+      weight: "'{category}' == 'B'"
+      color: 8
+      fillstyle: 0
+      linestyle: 7
+      linewidth: 3
+    res_high_nbar:
+      plot: "{res_high_nbar}"
+      weight: "'{category}' == 'B'"
+      label: "n_{bar}(high res.)"
+      color: "#e42536"
+      fillstyle: 0
+      linestyle: 7
+      linewidth: 3
+  xmin: 0
+  xmax: 32
+  nbins: 32
+  ndivisionsx: [4, 8, 0]
+  xtitle: "n_{bar} or n_{ch}"
+  ytitle: "Number of category B SMs"
+  gridx: True
+  gridy: False
+  legendpos: UR
+
+
+h1_metric_counts_cat-C:
+  type: "hist1"
+  entries:
+    lo_low_nch:
+      plot: "{lo_low_nch}"
+      weight: "'{category}' == 'C'"
+      label: "n_{ch}(low LO)"
+      color: "#3f90da"
+      fillstyle: 0
+      linestyle: 7
+      linewidth: 3
+    lo_low_nbar:
+      plot: "{lo_low_nbar}"
+      weight: "'{category}' == 'C'"
+      label: "n_{bar}(low LO)"
+      color: "#f89c20"
+      fillstyle: 0
+      linestyle: 7
+      linewidth: 3
+    lo_asymm_nbar:
+      plot: "{lo_asymm_nbar}"
+      label: "n_{bar}(asymm. LO)"
+      weight: "'{category}' == 'C'"
+      color: 8
+      fillstyle: 0
+      linestyle: 7
+      linewidth: 3
+    res_high_nbar:
+      plot: "{res_high_nbar}"
+      weight: "'{category}' == 'C'"
+      label: "n_{bar}(high res.)"
+      color: "#e42536"
+      fillstyle: 0
+      linestyle: 7
+      linewidth: 3
+  xmin: 0
+  xmax: 32
+  nbins: 32
+  ndivisionsx: [4, 8, 0]
+  xtitle: "n_{bar} or n_{ch}"
+  ytitle: "Number of category C SMs"
+  gridx: True
+  gridy: False
+  legendpos: UR
+
+
+h1_metric_counts_cat-D:
+  type: "hist1"
+  entries:
+    lo_low_nch:
+      plot: "{lo_low_nch}"
+      weight: "'{category}' == 'D'"
+      label: "n_{ch}(low LO)"
+      color: "#3f90da"
+      fillstyle: 0
+      linestyle: 7
+      linewidth: 3
+    lo_low_nbar:
+      plot: "{lo_low_nbar}"
+      weight: "'{category}' == 'D'"
+      label: "n_{bar}(low LO)"
+      color: "#f89c20"
+      fillstyle: 0
+      linestyle: 7
+      linewidth: 3
+    lo_asymm_nbar:
+      plot: "{lo_asymm_nbar}"
+      label: "n_{bar}(asymm. LO)"
+      weight: "'{category}' == 'D'"
+      color: 8
+      fillstyle: 0
+      linestyle: 7
+      linewidth: 3
+    res_high_nbar:
+      plot: "{res_high_nbar}"
+      weight: "'{category}' == 'D'"
+      label: "n_{bar}(high res.)"
+      color: "#e42536"
+      fillstyle: 0
+      linestyle: 7
+      linewidth: 3
+  xmin: 0
+  xmax: 32
+  nbins: 32
+  ndivisionsx: [4, 8, 0]
+  xtitle: "n_{bar} or n_{ch}"
+  ytitle: "Number of category D SMs"
+  gridx: True
+  gridy: False
+  legendpos: UR
+
+
+h1_metric_counts_cat-R:
+  type: "hist1"
+  entries:
+    lo_low_nch:
+      plot: "{lo_low_nch}"
+      weight: "'{category}' == 'R'"
+      label: "n_{ch}(low LO)"
+      color: "#3f90da"
+      fillstyle: 0
+      linestyle: 7
+      linewidth: 3
+    lo_low_nbar:
+      plot: "{lo_low_nbar}"
+      weight: "'{category}' == 'R'"
+      label: "n_{bar}(low LO)"
+      color: "#f89c20"
+      fillstyle: 0
+      linestyle: 7
+      linewidth: 3
+    lo_asymm_nbar:
+      plot: "{lo_asymm_nbar}"
+      label: "n_{bar}(asymm. LO)"
+      weight: "'{category}' == 'R'"
+      color: 8
+      fillstyle: 0
+      linestyle: 7
+      linewidth: 3
+    res_high_nbar:
+      plot: "{res_high_nbar}"
+      weight: "'{category}' == 'R'"
+      label: "n_{bar}(high res.)"
+      color: "#e42536"
+      fillstyle: 0
+      linestyle: 7
+      linewidth: 3
+  xmin: 0
+  xmax: 32
+  nbins: 32
+  ndivisionsx: [4, 8, 0]
+  xtitle: "n_{bar} or n_{ch}"
+  ytitle: "Number of category R SMs"
+  gridx: True
+  gridy: False
+  legendpos: UR
+
+
 h1_metric_barcodes:
   type: "hist1"
   entries:
@@ -747,6 +931,27 @@ g1_peak-res-max_vs_lyso:
   ymax: 10
   xtitle: "LYSO barcode [prefix 3211000010]"
   ytitle: "Peak energy resolution [%]"
+  gridx: True
+  gridy: True
+
+
+g1_lyso_vs_barcode:
+  type: "graph"
+  entries:
+    lyso_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "int('{lyso}'.split('321100001')[1]) if '{lyso}'.startswith('321100001') else 0"
+      label: " "
+      color: 1
+      marker: 4
+      size: 1
+      drawopt: "P"
+  xmin: null
+  xmax: null
+  ymin: null
+  ymax: null
+  xtitle: "SM barcode [prefix 3211002000]"
+  ytitle: "LYSO barcode [prefix 321100001]"
   gridx: True
   gridy: True
 
