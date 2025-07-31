@@ -817,6 +817,29 @@ g1_lo-max_vs_barcode:
   gridx: True
   gridy: True
 
+g1_lo-asymm_vs_barcode:
+  type: "graph"
+  entries:
+    light_yield_asymm_vs_barcode:
+      plotx: "int('{barcode}'.split('3211002000')[1])"
+      ploty: "numpy.mean(numpy.abs(numpy.array({asymm}.GetY())))"
+      read:
+        asymm: g_light_yield_asymm_vs_bar
+      label: "Bar avg."
+      color: 1
+      marker: 4
+      size: 1
+      drawopt: "P"
+  xmin: null 
+  xmax: null 
+  ymin: 0.0
+  ymax: 0.5
+  xtitle: "SM barcode [prefix 3211002000]"
+  ytitle: "Absolute LO asymmetry [ 2*|L-R|/(L+R)) ]"
+  gridx: True 
+  gridy: True 
+
+
 
 g1_peak-res-avg_vs_barcode:
   type: "graph"

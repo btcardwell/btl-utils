@@ -12,6 +12,8 @@ categories:
 # Python expressions will be evaluated
 # For e.g.: an object {key} needs to be defined under "read" block as key: object_name
 # The "pairing" key needs to be defined if modules are to be paired
+#  Can define your favorite metrics here
+# All metrics will be stored in the categorization output file
 metrics:
   lo_low_nbar: "numpy.count_nonzero(get_gry({lo_bar}) < {lo_bar_min})"
   lo_low_nch: "numpy.count_nonzero(get_gry({lo_ch}) < {lo_ch_min})"
@@ -38,7 +40,8 @@ metrics:
     + (numpy.abs(get_gry({lo_asymm_bar})) > {lo_asymm_bar_max})
     + (get_gry({res_bar}) > {res_bar_max})
     )
-  
+  lo_bar_avg: "float(numpy.mean(get_gry({lo_bar})))"
+
   # Negative for reverse sorting
   pairing: "-float(numpy.mean(get_gry({lo_bar})))"
 
