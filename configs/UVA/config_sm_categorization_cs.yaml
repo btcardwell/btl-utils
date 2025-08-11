@@ -2,19 +2,28 @@
 # Python expressions will be evaluated
 # For e.g.: a metric {key} needs to be defined under the "metrics" block as key: expression
 categories:
-  A: ({spe_high_nch} + {spe_low_nch}) == 0 and (not {lo_asymm_avg_high}) and {bad_nbar} == 0
-  B: ({spe_high_nch} + {spe_low_nch}) == 0 and (not {lo_asymm_avg_high}) and {bad_nbar} == 1
-  C: ({spe_high_nch} + {spe_low_nch}) == 0 and (not {lo_asymm_avg_high}) and {bad_nbar} == 2
-  D: ({spe_high_nch} + {spe_low_nch}) == 0 and (not {lo_asymm_avg_high}) and {bad_nbar} > 2 and {bad_nbar_lo} <= 2 and {res_high_nbar} > 0
-  R: not ({A} or {B} or {C} or {D})
+  A: ({valid}) and ({spe_high_nch} + {spe_low_nch}) == 0 and (not {lo_asymm_avg_high}) and {bad_nbar} == 0
+  B: ({valid}) and ({spe_high_nch} + {spe_low_nch}) == 0 and (not {lo_asymm_avg_high}) and {bad_nbar} == 1
+  C: ({valid}) and ({spe_high_nch} + {spe_low_nch}) == 0 and (not {lo_asymm_avg_high}) and {bad_nbar} == 2
+  D: ({valid}) and ({spe_high_nch} + {spe_low_nch}) == 0 and (not {lo_asymm_avg_high}) and {bad_nbar} > 2 and {bad_nbar_lo} <= 2 and {res_high_nbar} > 0
+  R: ({valid}) and (not ({A} or {B} or {C} or {D}))
+  X: (not {valid})
 
 # Define metrics in terms of objects (like tgraphs) read from files
 # Python expressions will be evaluated
 # For e.g.: an object {key} needs to be defined under "read" block as key: object_name
 # The "pairing" key needs to be defined if modules are to be paired
-#  Can define your favorite metrics here
+# Can define your favorite metrics here
 # All metrics will be stored in the categorization output file
 metrics:
+
+  valid: bool(
+      numpy.count_nonzero(numpy.isfinite(get_gry({lo_barL}))) == 16
+      and numpy.count_nonzero(numpy.isfinite(get_gry({spe_barL}))) == 16
+      and numpy.count_nonzero(numpy.isfinite(get_gry({spe_barR}))) == 16
+      and numpy.count_nonzero(numpy.isfinite(get_gry({lo_barR}))) == 16
+    )
+
   lo_low_nbar: "numpy.count_nonzero(get_gry({lo_bar}) < {lo_bar_min})"
   lo_low_nch: "numpy.count_nonzero(get_gry({lo_ch}) < {lo_ch_min})"
   lo_asymm_nbar: "numpy.count_nonzero(numpy.abs(get_gry({lo_asymm_bar})) > {lo_asymm_bar_max})"
@@ -22,7 +31,7 @@ metrics:
   spe_high_nch: "numpy.count_nonzero(get_gry({spe_ch}) > {spe_ch_max})"
   spe_low_nch: "numpy.count_nonzero(get_gry({spe_ch}) < {spe_ch_min})"
   
-  lo_asymm_avg_high: "int(numpy.mean(get_gry({lo_asymm_bar})) > {lo_asymm_avg_max})"
+  lo_asymm_avg_high: "bool(numpy.mean(get_gry({lo_asymm_bar})) > {lo_asymm_avg_max})"
 
   bad_nbar_lo: >-
     numpy.count_nonzero(
@@ -40,6 +49,7 @@ metrics:
     + (numpy.abs(get_gry({lo_asymm_bar})) > {lo_asymm_bar_max})
     + (get_gry({res_bar}) > {res_bar_max})
     )
+
   lo_bar_avg: "float(numpy.mean(get_gry({lo_bar})))"
 
   # Negative for reverse sorting

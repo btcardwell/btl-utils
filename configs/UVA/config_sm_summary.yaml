@@ -267,21 +267,10 @@ h1_metric_counts:
       fillstyle: 0
       linestyle: 7
       linewidth: 3
-    #spe_high_nch: 
-    #  plot: "{spe_high_nch}"
-    #  label: "n_{bar}(high s.p.e.)"
-    #  color: 1
-    #  fillstyle: 3002
-    #spe_low_nch:
-    #  plot: "{spe_low_nch}"
-    #  label: "n_{bar}(low s.p.e.)"
-    #  color: 1
-    #  fillstyle: 3002
   xmin: 0
   xmax: 32
   nbins: 32
   ndivisionsx: [4, 8, 0]
-  #centerlabelx: True
   xtitle: "n_{bar} or n_{ch}"
   ytitle: "Number of SMs"
   gridx: True
@@ -509,9 +498,7 @@ h1_metric_barcodes:
   ymin: 0
   ymax: 50
   nbins: 70
-  #nbins: 700
-  ndivisionsx: [4, 8, 0]
-  #centerlabelx: True
+  #ndivisionsx: [4, 8, 0]
   xtitle: "SM barcode [prefix 3211002000]"
   ytitle: "n_{bar} or n_{ch}"
   gridx: True
@@ -554,8 +541,8 @@ g1_spe-avg_vs_barcode:
   xmin: 5600
   xmax: null
   ymin: 2
-  ymax: 5
-  ndivisionsx: [5, 5, 0]
+  ymax: 6
+  #ndivisionsx: [5, 5, 0]
   xtitle: "SM barcode [prefix 3211002000]"
   ytitle: "Single p.e. charge [pC]"
   gridx: True
@@ -622,8 +609,8 @@ g1_spe-max_vs_barcode:
   xmin: 5600
   xmax: null
   ymin: 2
-  ymax: 5
-  ndivisionsx: [5, 5, 0]
+  ymax: 6
+  #ndivisionsx: [5, 5, 0]
   xtitle: "SM barcode [prefix 3211002000]"
   ytitle: "Single p.e. charge [pC]"
   gridx: True
@@ -672,8 +659,8 @@ g1_src-chg-avg_vs_barcode:
   xmin: 5600
   xmax: null
   ymin: 0
-  ymax: 4
-  ndivisionsx: [5, 5, 0]
+  ymax: 5
+  #ndivisionsx: [5, 5, 0]
   xtitle: "SM barcode [prefix 3211002000]"
   ytitle: "Integrated charge [pC/keV]"
   gridx: True
@@ -723,7 +710,7 @@ g1_lo-avg_vs_barcode:
   xmax: null
   ymin: 1.5
   ymax: 6.5
-  ndivisionsx: [5, 5, 0]
+  #ndivisionsx: [5, 5, 0]
   xtitle: "SM barcode [prefix 3211002000]"
   ytitle: "10^{-3}#times  Light output [p.e./MeV]"
   gridx: True
@@ -767,7 +754,7 @@ g1_lo-min_vs_barcode:
   xmax: null
   ymin: 1.5
   ymax: 6.5
-  ndivisionsx: [5, 5, 0]
+  #ndivisionsx: [5, 5, 0]
   xtitle: "SM barcode [prefix 3211002000]"
   ytitle: "10^{-3}#times  Light output [p.e./MeV]"
   gridx: True
@@ -811,11 +798,12 @@ g1_lo-max_vs_barcode:
   xmax: null
   ymin: 1.5
   ymax: 6.5
-  ndivisionsx: [5, 5, 0]
+  #ndivisionsx: [5, 5, 0]
   xtitle: "SM barcode [prefix 3211002000]"
   ytitle: "10^{-3}#times  Light output [p.e./MeV]"
   gridx: True
   gridy: True
+
 
 g1_lo-asymm_vs_barcode:
   type: "graph"
@@ -830,15 +818,14 @@ g1_lo-asymm_vs_barcode:
       marker: 4
       size: 1
       drawopt: "P"
-  xmin: null 
-  xmax: null 
+  xmin: null
+  xmax: null
   ymin: 0.0
   ymax: 0.5
   xtitle: "SM barcode [prefix 3211002000]"
   ytitle: "Absolute LO asymmetry [ 2*|L-R|/(L+R)) ]"
   gridx: True 
   gridy: True 
-
 
 
 g1_peak-res-avg_vs_barcode:
@@ -866,8 +853,8 @@ g1_peak-res-avg_vs_barcode:
       marker: 4
       size: 1
       drawopt: "P"
-      fit: 
-        pol0: "[0]+([1]*x)"
+      #fit: 
+      #  pol0: "[0]+([1]*x)"
     res_bar_vs_barcode:
       plotx: "int('{barcode}'.split('3211002000')[1])"
       ploty: "{res}.GetMean(2)*100"
@@ -884,7 +871,7 @@ g1_peak-res-avg_vs_barcode:
   xmax: null
   ymin: 2
   ymax: 30
-  ndivisionsx: [5, 5, 0]
+  #ndivisionsx: [5, 5, 0]
   xtitle: "SM barcode [prefix 3211002000]"
   ytitle: "Peak energy resolution [%]"
   gridx: True
@@ -928,8 +915,31 @@ g1_peak-res-max_vs_barcode:
   xmax: null
   ymin: 2
   ymax: 30
-  ndivisionsx: [5, 5, 0]
+  #ndivisionsx: [5, 5, 0]
   xtitle: "SM barcode [prefix 3211002000]"
+  ytitle: "Peak energy resolution [%]"
+  gridx: True
+  gridy: True
+
+
+g1_peak-res-avg_vs_lyso:
+  type: "graph"
+  entries:
+    res_bar_vs_lyso:
+      plotx: "int('{lyso}'.split('321100001')[1]) if '{lyso}'.startswith('321100001') else 0"
+      ploty: "{res}.GetMean(2)*100"
+      read:
+        res: "g_avg_lyso_res_vs_bar"
+      label: "Bar avg."
+      color: 1
+      marker: 4
+      size: 1
+      drawopt: "P"
+  xmin: null
+  xmax: null
+  ymin: 0
+  ymax: 10
+  xtitle: "LYSO barcode [prefix 321100001]"
   ytitle: "Peak energy resolution [%]"
   gridx: True
   gridy: True
@@ -984,7 +994,8 @@ g1_cat_vs_barcode:
   entries:
     cat_vs_barcode:
       plotx: "int('{barcode}'.split('3211002000')[1])"
-      ploty: "ord('{category}')-65" # Converts to A, B, C, ... to 0, 1, 2, ...
+      #ploty: "ord('{category}')-65" # Converts to A, B, C, ... to 0, 1, 2, ...
+      ploty: "['A', 'B', 'C', 'D', 'R', 'X'].index('{category}')"
       label: "Category"
       color: 1
       marker: 4
@@ -993,8 +1004,8 @@ g1_cat_vs_barcode:
   xmin: 5600
   xmax: null
   ymin: -1
-  ymax: 5
-  ndivisionsx: [5, 5, 0]
+  ymax: 7
+  #ndivisionsx: [5, 5, 0]
   xtitle: "SM barcode [prefix 3211002000]"
   ytitle: "Category"
   gridx: True
@@ -1040,7 +1051,7 @@ g1_metrics_vs_barcode:
   xmax: null
   ymin: -1
   ymax: 32
-  ndivisionsx: [5, 5, 0]
+  #ndivisionsx: [5, 5, 0]
   xtitle: "SM barcode [prefix 3211002000]"
   ytitle: "n_{bar} or n_{ch}"
   gridx: True
